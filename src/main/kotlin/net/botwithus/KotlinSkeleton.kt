@@ -18,7 +18,7 @@ class KotlinSkeleton(
     scriptDefinition: ScriptDefinition
 ) : LoopingScript (name, scriptConfig, scriptDefinition) {
 
-    val random: Random = Random()
+    private val random: Random = Random()
     var botState: BotState = BotState.IDLE
     var someBoolean: Boolean = true
 
@@ -35,11 +35,11 @@ class KotlinSkeleton(
         super.initialize()
         // Set the script graphics context to our custom one
         this.sgc = KotlinSkeletonGraphicsContext(this, console)
-        return true;
+        return true
     }
 
     override fun onLoop() {
-        val player = Client.getLocalPlayer();
+        val player = Client.getLocalPlayer()
         if (Client.getGameState() != Client.GameState.LOGGED_IN || player == null || botState == BotState.IDLE) {
             Execution.delay(random.nextLong(2500,5500))
             return
@@ -54,17 +54,23 @@ class KotlinSkeleton(
                 return
             }
             BotState.IDLE -> {
-                println("We're idle!");
+                println("We're idle!")
                 Execution.delay(random.nextLong(1500,5000))
             }
         }
         return
     }
 
-    fun handleSkilling(player: LocalPlayer): Long {
+    private fun handleSkilling(player: LocalPlayer): Long {
         //for example, if skilling progress interface is open, return a randomized value to keep waiting.
         if (Interfaces.isOpen(1251))
             return random.nextLong(250, 1500)
+
+        // Check the players adrenaline
+        if (player.adrenaline < 500) {
+            println("Player has less than 50% adrenaline")
+        }
+
         //if our inventory is full, lets bank.
         if (Backpack.isFull()) {
             println("Going to banking state!")
