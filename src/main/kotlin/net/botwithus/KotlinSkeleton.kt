@@ -10,7 +10,7 @@ import net.botwithus.rs3.game.scene.entities.`object`.SceneObject
 import net.botwithus.rs3.script.Execution
 import net.botwithus.rs3.script.LoopingScript
 import net.botwithus.rs3.script.config.ScriptConfig
-import java.util.*
+import kotlin.random.Random
 
 class KotlinSkeleton(
     name: String,
@@ -18,7 +18,7 @@ class KotlinSkeleton(
     scriptDefinition: ScriptDefinition
 ) : LoopingScript (name, scriptConfig, scriptDefinition) {
 
-    private val random: Random = Random()
+    private val random: Random = Random
     var botState: BotState = BotState.IDLE
     var someBoolean: Boolean = true
 
